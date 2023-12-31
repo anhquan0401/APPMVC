@@ -1,0 +1,15 @@
+
+@{
+    Layout = "_layout";
+}
+
+@{
+    var product = ViewBag.product as ProductModel;
+}
+
+<p>@ViewData["Title"]</p>
+<div class="card bg-success text-white">
+    <h1>@product.Name, Id = @product.Id</h1>
+    <p>Gia: @product.Price</p>
+</div>
+@this.Path
