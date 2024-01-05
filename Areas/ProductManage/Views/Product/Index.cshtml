@@ -1,0 +1,14 @@
+@inject App.Services.ProductService productService;
+
+@{
+    ViewData["Title"] = "Product";
+}
+<h1>Danh sách các sản phẩm</h1>
+@foreach (var product in productService) {
+    <a class="list-group-item list-group-item-action" asp-area="ProductManage" asp-action="ProductInfor" asp-controller="Product" asp-route-Id="@product.Id">
+        @product.Name - @product.Price
+    </a>
+}
+
+
+

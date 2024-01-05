@@ -1,0 +1,16 @@
+@model App.Models.PlanetModel;
+@{
+    ViewData["Title"] = @Model.VnName;
+}
+
+<h1>@Model.VnName</h1>
+
+<div class="card w-50">
+    <img src="~/PlanetImg/@(Model.Name).jpg" alt="">
+    <img src="~/PlanetImg/@(Model.Name).png" alt="">
+
+    <p>@Model.VnName -(Tiếng anh: @Model.Name) @Model.Content</p>
+
+
+    <a class="card-link" asp-action="Index">Các hành tinh</a>
+</div>

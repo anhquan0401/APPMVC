@@ -8,3 +8,42 @@
     <h1 class="display-4">Welcome</h1>
     <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
 </div>
+
+
+@* @Url.Action(); *@
+@* @Url.ActionLink(); *@
+
+
+@* @Url.RouteUrl(); *@
+@* @Url.Link(); *@
+
+
+@* <a> <form> <button> *@
+
+
+<p>
+    @Url.ActionLink(); 
+    @* lấy mặc định URL trang home *@
+</p>
+
+<p>
+    @Url.Action();
+    @* lấy URL chỉ /*@
+</p>
+
+<p>
+    @Url.Action("Privacy", new {Id = 123, Name = "AnhQuan"});
+</p>
+
+<p>
+    @Url.Action("ProductInfor", "Product", new { area = "ProductManage", Id = 1});
+</p>
+
+<p>
+    @Url.RouteUrl("default", new { action = "HelloView", controller = "Home", Id = 1, Name = "AnhQuan"});
+</p>
+
+<p>
+    @Url.RouteUrl("Neptune1");
+</p>
+

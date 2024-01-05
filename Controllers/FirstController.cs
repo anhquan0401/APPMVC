@@ -93,6 +93,8 @@ namespace App.Controllers {
 
         public string StatusMessage {set; get;}
 
+        // [AcceptVerbs("POST", "GET")]
+
         public IActionResult ViewProduct(int? id){
             var product = _productService.Where(p => p.Id == id).FirstOrDefault();
             if(product == null){

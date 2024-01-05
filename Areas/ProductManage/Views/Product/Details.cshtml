@@ -1,0 +1,11 @@
+@model App.Models.ProductModel;
+
+@{
+    ViewData["Title"] = @Model.Name;
+}
+
+<h1>@Model.Name</h1>
+<div class="card w-50">
+    <img src="" alt="">
+    <a class="card-link" asp-action="Index">Danh sách sản phẩm</a>
+</div>

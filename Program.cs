@@ -1,5 +1,9 @@
+
+using App.ExtendMethods;
 using App.Services;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Razor;
+using Microsoft.AspNetCore.Routing.Constraints;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -27,8 +31,7 @@ builder.Services.Configure<RazorViewEngineOptions>(option => {
 // builder.Services.AddSingleton<ProductService, ProductService>(); 
 // builder.Services.AddSingleton(typeof(ProductService));  
 builder.Services.AddSingleton(typeof(ProductService), typeof(ProductService));  
-
-
+builder.Services.AddSingleton(typeof(PlanetService), typeof(PlanetService));
 // builder.Services.AddTransient(); mỗi truy vấn lấy ra dịch vụ thì 1 đối tượng mới được tạo ra, Nếu dịch vụ của bạn không giữ trạng thái, và mỗi yêu cầu yêu cầu một instance mới,
 // AddTransient là lựa chọn phù hợp
 
@@ -50,13 +53,65 @@ if (!app.Environment.IsDevelopment())
 app.UseHttpsRedirection();
 app.UseStaticFiles();
 
+
+app.AddStatusCodePage(); // code 400 - 599
+
 app.UseRouting();
 
 app.UseAuthentication();
 app.UseAuthorization();
 
+app.MapRazorPages(); // dùng cái này để có thể file razor pages
+
+
+// 1. Tạo Route, ánh xạ Url
+// app.MapControllers();
+// URL = xemsanpham/Home/Index
+// xemsanpham/First/Hello
+// app.MapControllerRoute(
+//     name: "default",
+//     pattern: "xemsanpham/{controller=Home}/{action=Index}/{id?}"
+// );
+
+
+// https://learn.microsoft.com/en-us/dotnet/api/microsoft.aspnetcore.routing.irouteconstraint?view=aspnetcore-8.0
+// IRouteConstraint
+
+// https://learn.microsoft.com/en-us/aspnet/core/fundamentals/routing?view=aspnetcore-8.0#route-constraint-reference
+// app.MapControllerRoute(
+//     name: "default",
+//     pattern: "{url:regex(^((xemsanpham)|(viewproduct))$)}/{id:range(2, 4)}", // xemsanpham/1
+//     defaults: new {
+//         controller = "First",
+//         action = "ViewProduct"
+//     }, 
+//     constraints: new {
+//         // url = new RegexRouteConstraint(@"^((xemsanpham)|(viewproduct))$"), // RegexRouteConstraint theo quy tắc của regex
+//         // url = new StringRouteConstraint("xemsanpham"), // StringRouteConstraint đã thêm ràng buộc: phải tên xemsanpham/{id?} mới truy cập đc
+//         // id = new RangeRouteConstraint(2, 4) // RangeRouteConstraint chỉ cho phép id từ 2 đến 4
+//     }
+// );
+app.MapAreaControllerRoute(
+    name: "default",
+    pattern: "{controller=Home}/{action=Index}/{id?}",
+    areaName: "ProductManage"
+);
+
 app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Home}/{action=Index}/{id?}");
+
+// app.MapDefaultControllerRoute();
+// app.MapAreaControllerRoute();
+
+// Attribute:
+// [AcceptVerbs]
+// [HttpGet]
+// [HttpPost]
+// [HttpPut]
+// [HttpDelete]
+// [HttpHead]
+// [HttpPatch]
+
 
 app.Run();
