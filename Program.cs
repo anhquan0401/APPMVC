@@ -1,9 +1,12 @@
-
+using System.Configuration;
 using App.ExtendMethods;
+using App.Models;
 using App.Services;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Razor;
-using Microsoft.AspNetCore.Routing.Constraints;
+using Microsoft.EntityFrameworkCore;
+
+
+
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -38,6 +41,18 @@ builder.Services.AddSingleton(typeof(PlanetService), typeof(PlanetService));
 // builder.Services.AddScoped(); mỗi phiên lấy dịch vụ sẽ tạo ra 1 đối tượng mới đc tạo ra, nếu bạn muốn chia sẻ cùng một instance giữa các thành phần trong cùng một yêu cầu, 
 // bạn nên sử dụng AddScoped.
 
+
+// Add configuration services to the container.
+builder.Configuration.AddJsonFile("appsettings.json");
+
+// Add services to the container.
+builder.Services.AddControllersWithViews();
+
+// ... Other service registrations
+builder.Services.AddDbContext<AppDbContext>(options => {
+    var connectionString = builder.Configuration.GetConnectionString("AppMvcConnectionString");
+    options.UseMySql(connectionString, ServerVersion.AutoDetect(connectionString));
+});
 
 
 var app = builder.Build();

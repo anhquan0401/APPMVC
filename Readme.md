@@ -49,6 +49,9 @@
 - b4: dotnet aspnet-codegenerator controller -name PlanetController -namespace App.Controllers -outDir Controllers
 - b4: dotnet aspnet-codegenerator controller -name ProductController -namespace App.Controllers -outDir Controllers
 
+dotnet aspnet-codegenerator controller -name DbManage -namespace App.Areas.Database.Controllers -outDir Areas/Database/Controllers
+
+
 - dotnet aspnet-codegenerator area ProductManage
 
 
@@ -86,3 +89,21 @@ asp-controller=""
 asp-route-id...=""
 asp-route="
 
+// ASP.NET MVC với Entity Framework làm việc với SQL Server
+dotnet add package MySql.Data
+dotnet add package Microsoft.VisualStudio.Web.CodeGeneration.Design
+dotnet add package Microsoft.EntityFrameworkCore.Design
+dotnet add package Microsoft.EntityFrameworkCore.SqlServer
+dotnet add package MySql.Data.EntityFramework
+dotnet add package Microsoft.Extensions.Configuration --version 8.0.0
+dotnet add package Microsoft.EntityFrameworkCore
+dotnet add package Microsoft.Extensions.DependencyInjection
+dotnet add package Pomelo.EntityFrameworkCore.MySql
+dotnet add package MySql.EntityFrameworkCore
+
+
+
+
+dotnet ef migrations add Init
+dotnet ef database update
+dotnet tool update --global dotnet-ef
